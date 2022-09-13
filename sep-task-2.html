@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <title>WEBSITE</title>
+</head>
+<body>
+    <header class="head">
+        <h1>Form</h1>
+    </header>
+    <section class="content">
+        <form action="" class="userform" onsubmit="return false" autocomplete="on">
+            <label for="user-mail" class="labels">Email</label>
+            <input required type="email" name="user-mail" id="user-mail" placeholder="Email" />
+            <label for="user-firstname" class="labels">First Name</label>
+            <input required type="text" name="user-firstname" id="user-firstname" placeholder="First name" pattern="\w{1,}" />
+            <label for="user-lastname" class="labels">Last Name</label>
+            <input required type="text" name="user-lastname" id="user-lastname" placeholder="Last Name" pattern="\w{1,}">
+            <label for="user-phonenumber" class="labels">Phone number</label>
+            <input required type="tel" name="user-phonenumber" id="user-phonenumber" placeholder="Phone number"
+                pattern="[0-9]{10}" />
+
+            <span>Gender</span>
+            <label for="user-gender1" class="labels user-gender1">Male</label>
+            <input required type="radio" name="usergender" id="user-gender1" class="gender-male" value="male">
+            <label for="user-gender2" class="labels user-gender2">Female</label>
+            <input required type="radio" name="usergender" id="user-gender2" class="gender-female" value="female">
+            <label for="DOB" class="labels">D.O.B</label>
+            <input required type="date" name="DOB" id="DOB" />
+            <div class="terms-and-conditions">
+                <label for="terms" class="labels">I agree to the terms and conditions</label>
+                <input required type="checkbox" name="terms" id="terms" onchange="form.submit.disabled = !this.checked" />
+            </div>
+            <input required type="submit" value="submit" class="submit" name="submit" id="submit" onclick="show()" />
+        </form>
+    </section>
+    <section class="table-container">
+        <table class="table" border="2px" id="data-table">
+            <thead>
+                <tr>
+                    <th name="person-id">Id</th>
+                    <th>Email</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Phone number</th>
+                    <th>Gender</th>
+                    <th>D.O.B</th>
+                </tr>
+            </thead>
+            <caption>Data Table</caption>
+            <tbody id="data-table-body">
+
+            </tbody>
+        </table>
+    </section>
+</body>
+
+</html>
