@@ -1,5 +1,6 @@
+let currentRecordId = 0;
 let fieldsMap = new Map([
-    ["user-mail", /^\w+@\w+\.\w+$/g],
+    ["user-mail", /^\w+[|\.]\w+@\w+\.\w+$/g],
     ["user-firstname", /^\w{1,}$/g],
     ["user-lastname", /^\w{1,}$/g],
     ["user-phonenumber", /^\d{10}$/g]
@@ -16,6 +17,22 @@ let validate = (form, ...fields) => {
     return acceptable;
 };
 
+let editRecord = (id)=>{
+    let form = document.forms[0];
+    let data = JSON.parse(localStorage.getItem('myform'));
+    
+    form["user-mail"].value = data[id]["Email"];
+    form["user-firstname"].value = data[id]["First Name"];
+    form["user-lastname"].value = data[id]["Last Name"];
+    form["user-phonenumber"].value = data[id]["Phone number"];
+    form["usergender"].value = data[id]["Gender"];
+    form["DOB"].value = data[id]["D.O.B"];
+};
+
+let deleteRecord = (id)=>{
+    
+};
+
 let fill = () => {
     let data = JSON.parse(localStorage.getItem('myform'));
     let tableBody = document.getElementById("data-table-body");
@@ -29,7 +46,8 @@ let fill = () => {
     <td>${data[i]["Last Name"]}</td>
     <td>${data[i]["Phone number"]}</td>
     <td>${data[i]["Gender"]}</td>
-    <td>${data[i]["D.O.B"]}</td></tr>`;
+    <td>${data[i]["D.O.B"]}</td>
+    <td><div class="edit" id="edit${i}" onclick="editRecord(parseInt(this.id.substr(4)))">Edit</div><div class="delete" id="delete${i}" onclick="deleteRecord(parseInt(this.id.substr(6)))">Delete</div></td></tr>`;
         }
     }
 };
@@ -49,11 +67,15 @@ let show = () => {
         "Gender": form["usergender"].value,
         "D.O.B": form["DOB"].value
     };
-
-    let data = JSON.parse(localStorage.getItem('myform'));
-    if (data == null || data == undefined) {
-        data = { 1: { "Email": "mail 1", "First Name": "name 1", "Last Name": "name 1", "Phone number": 9999999999, "Gender": "gender 1", "D.O.B": "yyyy-mm-dd" }, 2: { "Email": "mail 2", "First Name": "name 2", "Last Name": "name 2", "Phone number": 9999999999, "Gender": "gender 2", "D.O.B": "yyyy-mm-dd" } };
+    let jsonString = localStorage.getItem('myform');
+    if(jsonString==""){
+        jsonString = JSON.stringify({ 1: { "Email": "mail 1", "First Name": "name 1", "Last Name": "name 1", "Phone number": 9999999999, "Gender": "gender 1", "D.O.B": "2004-01-01" }, 2: { "Email": "mail 2", "First Name": "name 2", "Last Name": "name 2", "Phone number": 9999999999, "Gender": "gender 2", "D.O.B": "2004-01-01" } });
     }
+    let data = JSON.parse(jsonString);
+    if (data == null || data == undefined) {
+        data = { 1: { "Email": "mail 1", "First Name": "name 1", "Last Name": "name 1", "Phone number": 9999999999, "Gender": "gender 1", "D.O.B": "2004-01-01" }, 2: { "Email": "mail 2", "First Name": "name 2", "Last Name": "name 2", "Phone number": 9999999999, "Gender": "gender 2", "D.O.B": "2004-01-01" } };
+    }
+    //if(data[])
     data[Object.keys(data).length + 1] = values;
     localStorage.setItem('myform', JSON.stringify(data));
     fill();
