@@ -118,3 +118,15 @@ input[type="checkbox"] {
 .table caption{
     border: 2px solid red;
 }
+
+.edit{
+    background-color: greenyellow;
+    padding: 5px;
+    margin: 2px;
+}
+
+.delete{
+    background-color: tomato;
+    padding: 5px;
+    margin: 2px;
+}
