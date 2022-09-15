@@ -2,6 +2,7 @@ let currentRecordId = 0;
 let getMaxValueOfId = (data) => {
     return Math.max(...Object.keys(data));
 };
+let createOrDefault = (data) => { return data == "" ? "{}" : data };
 let fieldsMap = new Map([
     ["user-mail", /^\w+[|\.]\w+@\w+\.\w+$/g],
     ["user-firstname", /^\w{1,}$/g],
@@ -24,7 +25,6 @@ let editRecord = (id) => {
     currentRecordId = id;
     let form = document.forms[0];
     let data = JSON.parse(localStorage.getItem('myform'));
-
     form["user-mail"].value = data[id]["Email"];
     form["user-firstname"].value = data[id]["First Name"];
     form["user-lastname"].value = data[id]["Last Name"];
@@ -41,11 +41,10 @@ let deleteRecord = (id) => {
 };
 
 let fill = () => {
-    let data = JSON.parse(localStorage.getItem('myform'));
+    let data = JSON.parse(createOrDefault(localStorage.getItem('myform')));
     let tableBody = document.getElementById("data-table-body");
     tableBody.innerHTML = "";
     for (let i in data) {
-
         tableBody.innerHTML += `<tr id="record-${i}">
     <td>${i}</td>
     <td>${data[i]["Email"]}</td>
@@ -73,7 +72,7 @@ let show = () => {
         "Gender": form["usergender"].value,
         "D.O.B": form["DOB"].value
     };
-    let data = JSON.parse(localStorage.getItem("myform"));
+    let data = JSON.parse(createOrDefault(localStorage.getItem("myform")));
     if (currentRecordId > 0) {
         deleteRecord(currentRecordId);
         data[currentRecordId] = values;
@@ -82,7 +81,8 @@ let show = () => {
         fill();
         return false;
     }
-    data[isNaN(getMaxValueOfId(data) + 1)?1:getMaxValueOfId(data) + 1] = values;
+    console.log(getMaxValueOfId(data));
+    data[isFinite(getMaxValueOfId(data)) ? getMaxValueOfId(data) + 1 : 1] = values;
     localStorage.setItem('myform', JSON.stringify(data));
     fill();
     form.reset();
@@ -90,7 +90,7 @@ let show = () => {
 }
 
 window.onload = () => {
-    let data = JSON.parse(localStorage.getItem("myform"));
+    let data = JSON.parse(createOrDefault(localStorage.getItem("myform")));
     if (data == null || data == undefined) {
         data = { 1: { "Email": "mail 1", "First Name": "name 1", "Last Name": "name 1", "Phone number": 9999999999, "Gender": "gender 1", "D.O.B": "2004-01-01" }, 2: { "Email": "mail 2", "First Name": "name 2", "Last Name": "name 2", "Phone number": 9999999999, "Gender": "gender 2", "D.O.B": "2004-01-01" } };
         localStorage.setItem("myform", JSON.stringify(data));
