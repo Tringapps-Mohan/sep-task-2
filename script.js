@@ -54,7 +54,6 @@ let fill = () => {
     <td>${data[i]["Gender"]}</td>
     <td>${data[i]["D.O.B"]}</td>
     <td><div class="edit" id="edit${i}" onclick="editRecord(parseInt(this.id.substr(4)))">Edit</div><div class="delete" id="delete${i}" onclick="deleteRecord(parseInt(this.id.substr(6)))">Delete</div></td></tr>`;
-
     }
 };
 
@@ -79,6 +78,7 @@ let show = () => {
         localStorage.setItem('myform', JSON.stringify(data));
         currentRecordId = 0;
         fill();
+        form.reset();
         return false;
     }
     console.log(getMaxValueOfId(data));
