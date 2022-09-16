@@ -99,7 +99,7 @@ input[type="checkbox"] {
         grid-column: 1/-1;
     }
 
-    .submit {
+    .submit,.clear {
         grid-column: 1/-1;
     }
 
@@ -142,8 +142,15 @@ input[type="checkbox"] {
     border-collapse: collapse;
 }
 
+.table th{
+    border: 2px solid black;
+}
 .table caption{
     border: 2px solid red;
+}
+
+.table tr:has(td):hover{
+    background-color: floralwhite;
 }
 
 .table td,tr{
