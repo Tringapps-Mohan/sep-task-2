@@ -4,7 +4,7 @@ let getMaxValueOfId = (data) => {
 };
 let createOrDefault = (data) => { return data == "" ? "{}" : data };
 let fieldsMap = new Map([
-    ["user-mail", /^\w+[|\.]\w+@\w+\.\w+$/g],
+    ["user-mail", /^[\w\.-]+@[\w\.-]+$/g],
     ["user-firstname", /^\w{1,}$/g],
     ["user-lastname", /^\w{1,}$/g],
     ["user-phonenumber", /^\d{10}$/g]
