@@ -1,8 +1,6 @@
 let currentRecordId = 0;
-let getMaxValueOfId = (data) => {
-    return Math.max(...Object.keys(data));
-};
-let createOrDefault = (data) => { return data == "" ? "{}" : data };
+let getMaxValueOfId = data => Math.max(...Object.keys(data));
+let createOrDefault = data => data == "" ? "{}" : data;
 let fieldsMap = new Map([
     ["user-mail", /^[\w\.-]+@[\w\.-]+$/g],
     ["user-firstname", /^\w{1,}$/g],
@@ -34,10 +32,12 @@ let editRecord = (id) => {
 };
 
 let deleteRecord = (id) => {
-    let data = JSON.parse(localStorage.getItem('myform'));
-    delete data[id];
-    localStorage.setItem('myform', JSON.stringify(data));
-    fill();
+    if(confirm("Are sure to delete this record ?")){
+        let data = JSON.parse(localStorage.getItem('myform'));
+        delete data[id];
+        localStorage.setItem('myform', JSON.stringify(data));
+        fill();
+    }
 };
 
 let fill = () => {
